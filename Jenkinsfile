@@ -23,12 +23,12 @@ pipeline {
         stage('Construir y subir imagen de Docker') {
             steps {
                 bat 'docker build -t app-python-cb:latest .'
-                // Sube la imagen a Docker Hub
                 withCredentials([usernamePassword(credentialsId: 'dockHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    bat 'docker login -u $USERNAME -p $PASSWORD'
-                    bat 'docker push app-python-cb:latest .'
+                    bat 'docker login -u %USERNAME% -p %PASSWORD%'
+                    bat 'docker push app-python-cb:latest'
                 }
             }
         }
+
     }
 }
