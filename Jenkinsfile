@@ -17,7 +17,7 @@ pipeline {
         stage('Análisis de seguridad') {
             steps {
                 dependencyCheck additionalArguments: '''
-                    --failBuildOnCVSS 7
+                    --failOnCVSS 7
                     -o './'
                     -s './'
                     -f 'ALL' 
