@@ -14,18 +14,6 @@ pipeline {
             }
         }
 
-        stage('Análisis de seguridad') {
-            steps {
-                dependencyCheck additionalArguments: '''
-                    --failOnCVSS 7
-                    -o './'
-                    -s './'
-                    -f 'ALL' 
-                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-                    //falla si encuentra una vulnerailidad con puntaje superior a 7
-            }
-        }
-
         stage('Ejecutar pruebas') {
             steps {
                 bat 'python -m pytest'
@@ -45,6 +33,18 @@ pipeline {
                 }
             }
         } 
+        
+        stage('Análisis de seguridad') {
+            steps {
+                dependencyCheck additionalArguments: '''
+                    --failOnCVSS 7
+                    -o './'
+                    -s './'
+                    -f 'ALL' 
+                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                    //falla si encuentra una vulnerailidad con puntaje superior a 7
+            }
+        }
 
         stage('Construir y subir imagen de Docker') {
             steps {
