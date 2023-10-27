@@ -24,10 +24,10 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarCloud') {
                     bat '''
-                        sonar-scanner.bat
-                            -D"sonar.organization=truva1"
-                            -D"sonar.projectKey=Truva1_devops-cb"
-                            -D"sonar.sources=."
+                        sonar-scanner.bat \
+                            -D"sonar.organization=truva1" \
+                            -D"sonar.projectKey=Truva1_devops-cb" \
+                            -D"sonar.sources=." \
                             -D"sonar.host.url=https://sonarcloud.io"
                     '''
                 }
