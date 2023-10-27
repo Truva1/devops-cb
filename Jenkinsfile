@@ -16,10 +16,13 @@ pipeline {
 
         stage('Análisis de seguridad') {
             steps {
-                script {
-                    dependencyCheck additionalArguments: '--failBuildOnCVSS 7'
+                dependencyCheck additionalArguments: '''
+                    --failBuildOnCVSS 7
+                    -o './'
+                    -s './'
+                    -f 'ALL' 
+                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
                     //falla si encuentra una vulnerailidad con puntaje superior a 7
-                }
             }
         }
 
