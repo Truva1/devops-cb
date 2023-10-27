@@ -14,6 +14,15 @@ pipeline {
             }
         }
 
+        stage('Análisis de seguridad') {
+            steps {
+                script {
+                    dependencyCheck additionalArguments: '--failBuildOnCVSS 7'
+                    //falla si encuentra una vulnerailidad con puntaje superior a 7
+                }
+            }
+        }
+
         stage('Ejecutar pruebas') {
             steps {
                 bat 'python -m pytest'
